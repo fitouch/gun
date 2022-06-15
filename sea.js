@@ -185,7 +185,7 @@
     }
     if(!api.TextDecoder)
     {
-      const { TextEncoder, TextDecoder } = require('text-encoding');
+      const { TextEncoder, TextDecoder } = require('./lib/text-encoding');
       api.TextDecoder = TextDecoder;
       api.TextEncoder = TextEncoder;
     }
