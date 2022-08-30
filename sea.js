@@ -183,7 +183,6 @@
       const {Crypto} = require("@peculiar/webcrypto");
       const crypto = new Crypto();
       api.subtle = crypto.subtle;
-      api.subtle = (api.crypto||o).subtle || (api.crypto||o).webkitSubtle;
       api.TextEncoder = window.TextEncoder;
       api.TextDecoder = window.TextDecoder;
       api.random = (len) => api.Buffer.from(api.crypto.getRandomValues(new Uint8Array(api.Buffer.alloc(len))));
