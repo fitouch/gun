@@ -177,7 +177,12 @@
     })}
 
     if(SEA.window){
-      api.crypto = window.crypto || window.msCrypto
+      // api.crypto = window.crypto || window.msCrypto
+      // api.subtle = (api.crypto||o).subtle || (api.crypto||o).webkitSubtle;
+      api.crypto = window.webCrypto;
+      const {Crypto} = require("@peculiar/webcrypto");
+      const crypto = new Crypto();
+      api.subtle = crypto.subtle;
       api.subtle = (api.crypto||o).subtle || (api.crypto||o).webkitSubtle;
       api.TextEncoder = window.TextEncoder;
       api.TextDecoder = window.TextDecoder;
