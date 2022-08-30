@@ -338,15 +338,15 @@
     //SEA.pair = async (data, proof, cb) => { try {
     SEA.pair = SEA.pair || (async (cb, opt) => { try {
 
-      var ecdhSubtle = shim.ossl || shim.subtle;
+      var ecdhSubtle = shim.ossl || global.webCrypto.subtle;
       // First: ECDSA keys for signing/verifying...
-      var sa = await shim.subtle.generateKey({name: 'ECDSA', namedCurve: 'P-256'}, true, [ 'sign', 'verify' ])
+      var sa = await global.webCrypto.subtle.generateKey({name: 'ECDSA', namedCurve: 'P-256'}, true, [ 'sign', 'verify' ])
       .then(async (keys) => {
         // privateKey scope doesn't leak out from here!
         //const { d: priv } = await shim.subtle.exportKey('jwk', keys.privateKey)
         var key = {};
-        key.priv = (await shim.subtle.exportKey('jwk', keys.privateKey)).d;
-        var pub = await shim.subtle.exportKey('jwk', keys.publicKey);
+        key.priv = (await global.webCrypto.subtle.exportKey('jwk', keys.privateKey)).d;
+        var pub = await global.webCrypto.subtle.exportKey('jwk', keys.publicKey);
         //const pub = Buff.from([ x, y ].join(':')).toString('base64') // old
         key.pub = pub.x+'.'+pub.y; // new
         // x and y are already base64
